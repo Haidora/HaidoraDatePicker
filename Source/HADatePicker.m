@@ -247,6 +247,7 @@
 		_second = 1 + row;
 	}
 	[pickerView reloadAllComponents];
+	[self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 @end
