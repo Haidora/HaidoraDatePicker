@@ -58,8 +58,9 @@
 	_dateFormatter = [[NSDateFormatter alloc]init];
 	_dateComp = [[NSDateComponents alloc]init];
 	_gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-		
+	
 	_datePickerView = [[UIPickerView alloc]initWithFrame:self.bounds];
+	_datePickerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	_datePickerView.dataSource = self;
 	_datePickerView.delegate = self;
 	[self addSubview:_datePickerView];
@@ -118,7 +119,7 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-	NSInteger count;
+	NSInteger count = 0;
 	//year
 	if (component == 0)
 	{
@@ -174,7 +175,7 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-	NSString *title;
+	NSString *title = @"";
 	if (component == 0)
 	{
 		title = [NSString stringWithFormat:@"%d",(1970+row)];
@@ -206,7 +207,7 @@
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component
 {
-	CGFloat width;
+	CGFloat width = 0;
 	if (component == 0)
 	{
 		width = 70;
@@ -247,6 +248,14 @@
 		_second = 1 + row;
 	}
 	[pickerView reloadAllComponents];
+	
+	_year = [pickerView selectedRowInComponent:0] + 1970;
+	_month = [pickerView selectedRowInComponent:1] + 1;
+	_day = [pickerView selectedRowInComponent:2] + 1;
+	_hour = [pickerView selectedRowInComponent:3] + 1;
+	_minute = [pickerView selectedRowInComponent:4] + 1;
+	_second = [pickerView selectedRowInComponent:5] + 1;
+	
 	[self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
