@@ -80,7 +80,7 @@
 	[_dateFormatter setDateFormat:@"dd"];
 	_day = [[_dateFormatter stringFromDate:_date] integerValue];
 	
-	[_dateFormatter setDateFormat:@"hh"];
+	[_dateFormatter setDateFormat:@"HH"];
 	_hour = [[_dateFormatter stringFromDate:_date] integerValue];
 	
 	[_dateFormatter setDateFormat:@"mm"];
