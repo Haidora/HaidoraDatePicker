@@ -61,6 +61,7 @@
 	
 	_datePickerView = [[UIPickerView alloc]initWithFrame:self.bounds];
 	_datePickerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	_datePickerView.showsSelectionIndicator = YES;
 	_datePickerView.dataSource = self;
 	_datePickerView.delegate = self;
 	[self addSubview:_datePickerView];
@@ -173,34 +174,49 @@
 #pragma mark
 #pragma mark UIPickerViewDelegate
 
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+    CGRect rect = CGRectMake(0, 0, 70, 40);
+    if (component == 0) {
+        rect.size.width = 70;
+    }else{
+        rect.size.width = 40;
+    }
+    UILabel *label = [[UILabel alloc]initWithFrame:rect];
+	label.backgroundColor = [UIColor clearColor];
+	label.textAlignment = NSTextAlignmentCenter;
+    label.text = [self pickerView:pickerView titleForRow:row forComponent:component];
+    return label;
+}
+
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
 	NSString *title = @"";
 	if (component == 0)
 	{
-		title = [NSString stringWithFormat:@"%d",(1970+row)];
+		title = [NSString stringWithFormat:@"%d年",(1970+row)];
 	}
 	//month
 	else if(component == 1)
 	{
-		title = [NSString stringWithFormat:@"%d",(1+row)];
+		title = [NSString stringWithFormat:@"%d月",(1+row)];
 	}
 	//day
 	else if (component == 2)
 	{
-		title = [NSString stringWithFormat:@"%d",(1+row)];
+		title = [NSString stringWithFormat:@"%d日",(1+row)];
 	}
 	else if (component == 3)
 	{
-		title = [NSString stringWithFormat:@"%d",(1+row)];
+		title = [NSString stringWithFormat:@"%d时",(1+row)];
 	}
 	else if (component == 4)
 	{
-		title = [NSString stringWithFormat:@"%d",(1+row)];
+		title = [NSString stringWithFormat:@"%d分",(1+row)];
 	}
 	else if (component == 5)
 	{
-		title = [NSString stringWithFormat:@"%d",(1+row)];
+		title = [NSString stringWithFormat:@"%d秒",(1+row)];
 	}
 	return title;
 }
